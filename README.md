@@ -153,16 +153,15 @@
 #### 困难
 
 1.
-
 Q：重新创建场景[Lighting and Depth](https://discoverthreejs.com/zh/book/first-steps/physically-based-rendering/#lighting-and-depth)
 ，减去动画（提示：使用两个网格和两个材质）
 <details>
-   <summary>查看答案</summary>
-   在<code>World/components</code>>目录下创建<code>cube1.js</code>: <br>
+<summary>查看答案</summary>
+在<code>World/components</code>>目录下创建<code>cube1.js</code>: <br>
 <pre>
 import {
-    BoxBufferGeometry,
-    Mesh, MeshBasicMaterial,
+  BoxBufferGeometry,
+  Mesh, MeshBasicMaterial,
 } from 'three';
 
 function createCube1() {
@@ -277,4 +276,81 @@ export {createCube1};
    180° = Math.PI
    360° = Math.PI * 2
    </pre>
+   </details>
+
+## 1.6 使我们的场景育有响应性
+
+地址：<http://localhost:5173/1.6/index.html>
+
+### 挑战
+
+#### 简单
+
+1. 启用和禁用AA并比较差异。
+   <details>
+   <summary>查看答案</summary>
+   开启AA: 边缘处较为平滑。
+   禁用AA：边缘处不平滑，有锯齿。
+   </details>
+2. 旋转立方体，直到边缘垂直和水平。现在，你能看出禁用AA时有什么不同吗？
+   <details>
+   <summary>查看答案</summary>
+   几乎没有区别。
+   </details>
+3. 注释掉 World.js 中调整大小的代码，并比较调整窗口大小时的差异。
+   <details>
+   <summary>查看答案</summary>
+   场景不会重新渲染
+   </details>
+4. 注释掉 World.js 中的自定义onResize钩子，看看当你调整窗口大小时会发生什么。
+   <details>
+   <summary>查看答案</summary>
+   依然会重新渲染
+   </details>
+
+#### 中等
+
+1. 禁用抗锯齿。现在，放大立方体以更好地查看锯齿伪影。不要使用浏览器的缩放功能。相反，请尝试以下方法：
+    * 使用`cube.scale`放大立方体。
+    * 使用`cube.position.z`使立方体更靠近您。
+    * 使用`camera.position.z`使相机更靠近立方体。
+   <details>
+   <summary>查看答案</summary>
+   <ul>
+    <li><pre>cube.scale.set(10, 10, 10)</pre></li>
+    <li><pre>cube.position.z = 4</pre></li>
+    <li><pre>camera.position.z = 3</pre></li>
+   </ul>
+   </details>
+2. 仍然禁用AA，使用`camera.position.x`(水平移动)和`camera.position.y`(垂直移动)放大立方体的右上角。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+      camera.position.x = 1;
+      camera.position.y = 1;
+   </pre>
+   </details>
+3. 重复2.，但这一次，使用`cube.position.x`和`cube.position.y`。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+      cube.position.x = 2;
+      cube.position.y = 2;
+   </pre>
+   </details>
+#### 困难
+1. 不要使用容器来调整场景大小，而是尝试手动输入一些数字。例如，创建一个宽高64像素或宽高256像素的场景。您可能希望在此处更改场景的背景颜色以更轻松地查看。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+      renderer.setSize(256, 256);
+   </pre>
+   </details>
+2. 玩玩`devicePixelRatio`。尝试为DPR设置更高的值，例如4或8（不过不要太高！）。如果您将值设置为低于1，例如0.5，会发生什么情况？如果您为DPR设置高值并禁用AA，会发生什么情况？立方体的边缘看起来如何？
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+      renderer.setPixelRatio(4);
+   </pre>
+   在禁用AA的情况下，DPR越小，边缘锯齿越明显。
    </details>
