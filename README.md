@@ -152,48 +152,45 @@
 
 #### 困难
 
-1.
-Q：重新创建场景[Lighting and Depth](https://discoverthreejs.com/zh/book/first-steps/physically-based-rendering/#lighting-and-depth)
-，减去动画（提示：使用两个网格和两个材质）
-<details>
-<summary>查看答案</summary>
-在<code>World/components</code>>目录下创建<code>cube1.js</code>: <br>
-<pre>
-import {
-  BoxBufferGeometry,
-  Mesh, MeshBasicMaterial,
-} from 'three';
-
-function createCube1() {
-// create a geometry
-const geometry = new BoxBufferGeometry(2, 2, 2);
-// create a default (white) Basic material
-const material = new MeshBasicMaterial({
-color: 'purple'
-});
-// create a Mesh containing the geometry and material
-const cube = new Mesh(geometry, material);
-cube.rotation.set(-0.5, -0.1, 0.8)
-cube.position.set(3, 0, 0)
-return cube;
-}
-export {createCube1};
-</pre>
-在<code>World/World.js</code>中做如下修改: <br>
-<pre>
-   import {createCube1} from "./components/cube1";
-   class World {
-      constructor(container) {
-         //...
-         const cube = createCube();
-         const cube1 = createCube1();
-         const light = createLights();
-         this.#scene.add(cube, cube1, light);
-         //...
+1. Q：重新创建场景[Lighting and Depth](https://discoverthreejs.com/zh/book/first-steps/physically-based-rendering/#lighting-and-depth)，减去动画（提示：使用两个网格和两个材质）
+   <details>
+   <summary>查看答案</summary>
+   在<code>World/components</code>>目录下创建<code>cube1.js</code>: <br>
+   <pre>
+   import {
+         BoxBufferGeometry,
+         Mesh, MeshBasicMaterial
+   } from 'three';
+   function createCube1() {
+      // create a geometry
+      const geometry = new BoxBufferGeometry(2, 2, 2);
+      // create a default (white) Basic material
+      const material = new MeshBasicMaterial({
+         color: 'purple'
+      });
+      // create a Mesh containing the geometry and material
+      const cube = new Mesh(geometry, material);
+      cube.rotation.set(-0.5, -0.1, 0.8)
+      cube.position.set(3, 0, 0)
+      return cube;
    }
-}
-</pre>
-</details>
+   export {createCube1};
+   </pre>
+   在<code>World/World.js</code>中做如下修改: <br>
+   <pre>
+      import {createCube1} from "./components/cube1";
+      class World {
+         constructor(container) {
+            //...
+            const cube = createCube();
+            const cube1 = createCube1();
+            const light = createLights();
+            this.#scene.add(cube, cube1, light);
+            //...
+      }
+   }
+   </pre>
+   </details>
 
 ## 1.5 变换和坐标系
 
@@ -354,3 +351,5 @@ export {createCube1};
    </pre>
    在禁用AA的情况下，DPR越小，边缘锯齿越明显。
    </details>
+
+## 1.7 动画循环
