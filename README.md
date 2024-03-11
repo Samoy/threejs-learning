@@ -19,7 +19,7 @@
 
 #### 简单
 
-1. Q：更改场景背景的颜色。您可以输入任何标准颜色名称，例如红色、绿色、紫色等，以及一些不常见的名称，例如海蓝宝石或珊瑚色。你能猜出
+1. 更改场景背景的颜色。您可以输入任何标准颜色名称，例如红色、绿色、紫色等，以及一些不常见的名称，例如海蓝宝石或珊瑚色。你能猜出
    140 个 CSS 颜色名称中的多少个？
     <details>
     <summary>查看答案</summary>
@@ -31,7 +31,7 @@
 
 #### 中等
 
-1. Q：将立方体更改为其他形状，例如矩形、球体、三角形或圆环。（提示： 在文档中搜索“BufferGeometry”。）
+1. 将立方体更改为其他形状，例如矩形、球体、三角形或圆环。（提示： 在文档中搜索“BufferGeometry”。）
    <details>
     <summary>查看答案</summary>
     A：在<code>World/components/cube.js</code>中做如下修改:<br>
@@ -58,7 +58,7 @@
    const geometry = new TorusGeometry(1, 0.1, 100, 100);
    </pre>
    </details>
-2. Q：添加第二个立方体并使用`mesh.position.set(x, y, z)`移动它（您需要找出从`createCube`
+2. 添加第二个立方体并使用`mesh.position.set(x, y, z)`移动它（您需要找出从`createCube`
    函数返回两个多维数据集的某种方法，或者添加第二个模块，如cube2.js）。
    <details>
     <summary>查看答案</summary>
@@ -81,8 +81,7 @@
    </details>
 
 #### 困难
-
-1. Q：向 HTML 页面添加一个按钮，并延迟渲染场景，直到单击该按钮。无需 对 World 应用程序进行任何更改即可执行此操作。相反，在
+1. 向 HTML 页面添加一个按钮，并延迟渲染场景，直到单击该按钮。无需 对 World 应用程序进行任何更改即可执行此操作。相反，在
    index.html 中创建按钮并在 main.js 中设置它。
    <details>
    <summary>查看答案</summary>
@@ -103,10 +102,8 @@
 地址：<http://localhost:5173/1.4/index.html>
 
 ### 挑战
-
 #### 简单
-
-1. Q：尝试改变材料的颜色。所有正常的颜色，如red、green或blue，以及更多奇特的颜色，如peachpuff、orchid或papayawhip，都可以使用。
+1. 尝试改变材料的颜色。所有正常的颜色，如red、green或blue，以及更多奇特的颜色，如peachpuff、orchid或papayawhip，都可以使用。
     <details>
     <summary>查看答案</summary>
     A：在<code>World/components/cube.js</code>中做如下修改:<br>
@@ -116,7 +113,7 @@
     });
     </pre>
     </details>
-2. Q：尝试改变灯光的颜色。同样，您可以使用任何 CSS 颜色名称。观看如何设置各种灯光和材质颜色为立方体提供最终颜色。
+2. 尝试改变灯光的颜色。同样，您可以使用任何 CSS 颜色名称。观看如何设置各种灯光和材质颜色为立方体提供最终颜色。
     <details>
     <summary>查看答案</summary>
     A：在<code>World/components/light.js</code>中做如下修改:<br>
@@ -124,7 +121,7 @@
        const light = new DirectionalLight('你想要替换的颜色', 8);
     </code>
     </details>
-3. Q：尝试移动灯光（使用light.position）并观察结果。
+3. 尝试移动灯光（使用light.position）并观察结果。
    <details>
    <summary>查看答案</summary>
    网格的显示效果会根据光照的位置发生相应的改变。
@@ -132,17 +129,17 @@
 
 #### 中等
 
-1. Q：测试其他直射光类型:  `PointLight`， `SpotLight`，和 `RectAreaLight`
+1. 测试其他直射光类型:  `PointLight`， `SpotLight`，和 `RectAreaLight`
    <details>
     <summary>查看答案</summary>
-    A：在<code>World/components/light.js</code>中做如下修改:<br>
+    在<code>World/components/light.js</code>中做如下修改:<br>
     <pre>
       // const light = new PointLight('white', 8);
       // const light = new SpotLight('white', 8);
       // const light = new RectAreaLight('white', 8);
     </pre>
    </details>
-2. Q：MeshBasicMaterial并且MeshStandardMaterial不是唯一可用的材料。 three.js
+2. MeshBasicMaterial并且MeshStandardMaterial不是唯一可用的材料。 three.js
    核心中共有十八种材质，任何名称中带有“mesh”字样的材质都可以与我们的立方体网格一起使用。测试其中一些（提示： 在文档中搜索"
    material"）。您需要先导入其他灯光和材质类，然后才能使用它们！
    <details>
@@ -152,7 +149,7 @@
 
 #### 困难
 
-1. Q：重新创建场景[Lighting and Depth](https://discoverthreejs.com/zh/book/first-steps/physically-based-rendering/#lighting-and-depth)，减去动画（提示：使用两个网格和两个材质）
+1. 重新创建场景[Lighting and Depth](https://discoverthreejs.com/zh/book/first-steps/physically-based-rendering/#lighting-and-depth)，减去动画（提示：使用两个网格和两个材质）
    <details>
    <summary>查看答案</summary>
    在<code>World/components</code>>目录下创建<code>cube1.js</code>: <br>
@@ -203,18 +200,18 @@
 1. 打开 cube.js 模块并尝试使用cube.position、cube.rotation和cube.scale。
    <details>
    <summary>查看答案</summary>
-   A：参见<code>World/components/cube.js</code>
+   参见<code>World/components/cube.js</code>
    </details>
 2. 打开 lights.js 模块并尝试使用light.position。注意设置light.rotation和light.scale没有效果。
    <details>
    <summary>查看答案</summary>
-   A：参见<code>World/components/light.js</code>
+   参见<code>World/components/light.js</code>
    </details>
 
 3. 在 camera.js 模块中对camera.position和camera.rotation进行实验。注意设置camera.scale没有效果。
    <details>
    <summary>查看答案</summary>
-   A：参见<code>World/components/camera.js</code>
+   参见<code>World/components/camera.js</code>
    </details>
 
 #### 中等
@@ -224,7 +221,7 @@
    叠加 的。如果您将两个网格平移5个单位，则子对象将总共移动10个单位。
    <details>
    <summary>查看答案</summary>
-   A：在<code>World/components/cube.js</code>中做如下修改:
+   在<code>World/components/cube.js</code>中做如下修改:
    <pre>
     const cube1 = new Mesh(geometry, new MeshStandardMaterial(
         {
@@ -240,7 +237,7 @@
    请记住使用MathUtils.degToRad将度数转换为弧度。
    <details>
    <summary>查看答案</summary>
-   A：在<code>World/components/cube.js</code>中做如下修改:
+   在<code>World/components/cube.js</code>中做如下修改:
    <pre>
     // ...
     cube.rotation.x = MathUtils.degToRad(45);
@@ -251,7 +248,7 @@
 3. 最后，尝试设置两个网格的缩放比例。这一次，请注意缩放比例是 相乘 的。如果将父网格缩放2倍，将子网格缩放4倍，则子网格将增长到其初始大小的八倍。
    <details>
    <summary>查看答案</summary>
-   A：在<code>World/components/cube.js</code>中做如下修改:
+   在<code>World/components/cube.js</code>中做如下修改:
    <pre>
     // ...
     cube.scale.set(2, 2, 2)
@@ -353,3 +350,136 @@
    </details>
 
 ## 1.7 动画循环
+地址: <http://localhost:5173/1.7/index.html>
+### 挑战
+#### 简单
+1. 玩一玩动画速度。使立方体每百秒旋转一圈，然后每秒旋转一圈。
+   <details>
+   <summary>查看答案</summary>
+   每百秒旋转一圈：
+   <pre>
+   const radiansPerSecond = MathUtils.degToRad(360 / 100);
+   </pre>
+   每秒旋转一圈：
+   <pre>
+   const radiansPerSecond = MathUtils.degToRad(360);
+   </pre>
+   </details>
+2. 您可以为任何东西设置动画，而不仅仅是旋转。尝试为网格的其他一些属性设置动画。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   cube.position.x += delta / 2;
+   cube.position.y += delta / 2;
+   cube.position.z += delta / 2;
+   cube.scale.x += delta / 2;
+   cube.scale.y += delta / 2;
+   cube.scale.z += delta / 2;
+   </pre>
+   </details>
+#### 中等
+1. 给相机添加一个`.tick`方法，然后让它慢慢缩小。尝试以每秒一米左右的速度缩小。
+    <details>
+   <summary>查看答案</summary>
+   在<code>World/components/camera.js</code>中添加以下代码:
+   <pre>
+   const meterPerSecond = 1;
+   camera.tick = (delta) => {
+      camera.position.z += delta * meterPerSecond;
+   };
+   </pre>
+   在<code>World/World.js</code>中添加以下代码:
+   <pre>
+   this.#loop.updatables.push(this.#camera);
+   </pre>
+   </details>
+2. 向灯光添加一个`.tick`方法，并对`light.position.x, .y或.z`参数进行动画处理。
+   <details>
+   <summary>查看答案</summary>
+    在<code>World/components/light.js</code>中添加以下代码:
+   <pre>
+   light.tick = function (delta) {
+      light.position.x += delta * 10;
+      light.position.y += delta * 10;
+      light.position.z += delta * 10;
+   }
+   </pre>
+   在<code>World/World.js</code>中添加以下代码:
+   <pre>
+   this.#loop.updatables.push(light);
+   </pre>
+   </details>
+3. 添加一个启动和停止动画循环的`click`事件监听器（或者，如果你想花哨的话，一个按钮）。在`main.js`中使用`World.start`和`World.stop`执行此操作。
+   <details>
+   <summary>查看答案</summary>
+   对`main.js`做如下改造：
+   <pre>
+    const container = document.querySelector("#scene-container");
+    const button = document.createElement("button");
+    let isAnimate = true;
+    container.append(button);
+    const world = new World(container);
+    button.innerHTML = '结束动画'
+    button.onclick = () => {
+        if (isAnimate) {
+            button.innerHTML = '开始动画';
+            world.stop();
+        }else {
+            button.innerHTML = '结束动画'
+            world.start();
+        }
+        isAnimate = !isAnimate;
+    }
+    world.start();
+   </pre>
+   </details>
+#### 困难
+1. 使用模运算符为立方体、相机或灯光设置`.position`动画。让相机反复缩小十米。让立方体一遍又一遍地从屏幕的左到右进行动画。
+   <details>
+   <summary>查看答案</summary>
+   在<code>World/components/cube.js</code>中添加以下代码:
+   <pre>
+   cube.position.x =  cube.position.x % 10 + 1;
+   </pre>
+   在<code>World/components/camera.js</code>中添加以下代码:
+   <pre>
+   camera.tick = (delta) => {
+      camera.position.z = camera.position.z % 10 + 1;
+   }
+   </pre>
+   </details>
+2. 让相机缩小十米，然后反方向再次放大。在屏幕上从左到右为立方体设置动画，然后，当它到达屏幕的右边缘（大致）时，让它反向并移回起点。
+   <details>
+   <summary>查看答案</summary>
+   在<code>World/components/camera.js</code>中添加以下代码:
+   <pre>
+   let i = 0;
+   let isAdd = true;
+   camera.tick = (delta) => {
+      // 让相机缩小十米，然后反方向再次放大
+      let x = i % 10;
+      camera.position.z = camera.position.z + (isAdd ? x : -x);
+      if (x === 9) {
+            isAdd = !isAdd;
+      }
+      i++;
+   };
+   </pre>
+   在<code>World/components/cube.js</code>中添加以下代码:
+   <pre>
+   let isAdd = true;
+   cube.tick = (delta) => {
+      if (isAdd) {
+         cube.position.x += 0.1;
+         if (cube.position.x > 5) {
+            isAdd = false;
+         }
+      } else {
+         cube.position.x -= 0.1;
+         if (cube.position.x < -5) {
+            isAdd = true;
+         }
+      }
+   }
+   </pre>
+   </details>

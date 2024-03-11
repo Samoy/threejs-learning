@@ -1,5 +1,7 @@
 import {Clock} from "three";
 
+const clock = new Clock();
+
 class Loop {
     constructor(camera, scene, renderer) {
         this.camera = camera;
@@ -20,8 +22,9 @@ class Loop {
     }
 
     tick() {
+        const delta = clock.getDelta();
         for (const object of this.updatables) {
-            object.tick();
+            object.tick(delta);
         }
     }
 
