@@ -570,3 +570,98 @@
    <summary>查看答案</summary>
    <code>uv-test-bw.png</code>的url是<a target="_blank" href="http://localhost:5173/1.8/assets/textures/uv-test-bw.png">http://localhost:5173/1.8/assets/textures/uv-test-bw.png</a>
    </details>
+
+## 1.9 使用相机控制插件扩展three
+地址: <http://localhost:5173/1.9/index.html>
+### 挑战
+#### 简单
+1. 尝试调整控件的[最小和最大缩放级别](https://discoverthreejs.com/zh/book/first-steps/camera-controls/#limiting-zoom)。如果你让这两个值相等会发生什么？或使`minDistance`大于`maxDistance`？
+   <details>
+   <summary>查看答案</summary>
+   无法进行缩放，代码如下：
+   <pre>
+   controls.minDistance = 7;
+   controls.maxDistance = 5;
+   </pre>
+   </details>
+2. 启用[自动旋转](https://discoverthreejs.com/zh/book/first-steps/camera-controls/#auto-rotate)，然后尝试调整旋转速度。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   controls.autoRotate = true;
+   controls.autoRotateSpeed = 1;
+   </pre>
+   </details>
+3. 尝试[禁用三种控件模式中的每一种](https://discoverthreejs.com/zh/book/first-steps/camera-controls/#enable-or-disable-the-controls)，一次禁用一种，然后观察结果。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   controls.enableRotate = false;
+   controls.enableZoom = false;
+   controls.enablePan = false;
+   </pre>
+   </details>
+4. [调整阻尼速度](https://discoverthreejs.com/zh/book/first-steps/camera-controls/#enable-damping-for-added-realism) (`.dampingFactor`)以了解阻尼的工作原理。大于0和小于1的值效果最好。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   controls.dampingFactor = 0.6;
+   </pre>
+   </details>
+#### 中等
+1. 尝试调整控件的[水平和垂直旋转限制](https://discoverthreejs.com/zh/book/first-steps/camera-controls/#limiting-rotation)。请记住，如果您以度为单位，则必须转换为弧度。如果您需要提醒它是如何工作的，请查看`cube.js`。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   // 水平：
+   controls.minAzimuthAngle = -Math.PI;
+   controls.maxAzimuthAngle = Math.PI;
+   // 垂直：
+   controls.minPolarAngle = 0;
+   controls.maxPolarAngle = Math.PI;
+   </pre>
+   </details>
+2. 向页面添加一个按钮（或单击事件侦听器），并且每当您单击该按钮时，将相机和控件的目标移动到一个新的随机位置。尝试限制移动，使立方体始终位于屏幕上的某个位置。
+   <details>
+   <summary>查看答案</summary>
+   在`src/World/World.js`中添加以下代码：
+   <pre>
+   translate() {
+        let rangeSize = 4 - (-4) + 1;
+        let random = Math.random() * rangeSize - 4;
+        this.#camera.position.set(random, 0, 10);
+        this.render();
+    }
+
+   reset() {
+   this.#camera.position.set(0, 0, 10);
+   this.render();
+   }
+   </pre>
+   在`src/main.js`中做如下修改：
+   <pre>
+   const button = document.createElement('button');
+   button.innerText = "Start";
+   let isTranslate = false;
+   button.addEventListener('click', () => {
+      if (isTranslate) {
+         button.innerText = "Start";
+         world.reset();
+      } else {
+         world.translate();
+         button.innerText = "Reset";
+      }
+      isTranslate = !isTranslate;
+    });
+   container.append(button);
+   </pre>
+   </details>
+#### 困难
+1. 设置在使用控件时[按需渲染](https://discoverthreejs.com/zh/book/first-steps/camera-controls/#rendering-on-demand-with-orbitcontrols)，包括在纹理加载后以及在调整场景大小时生成新帧。
+   <details>
+   <summary>查看答案</summary>
+   </details>
+2. 你能在几秒钟内让相机和控件的目标动画到一个新的位置吗？也许在页面上添加一个按钮，当你点击它时，播放动画。看看当您只为相机或目标设置动画时会发生什么，或者当您在制作动画时不禁用控件时会发生什么。设置此动画的最佳位置是在控件controls模块中。
+   <details>
+   <summary>查看答案</summary>
+   </details>
