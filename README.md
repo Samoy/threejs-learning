@@ -483,3 +483,90 @@
    }
    </pre>
    </details>
+## 1.8 纹理映射简介
+地址: <http://localhost:5173/1.8/index.html>
+### 挑战
+#### 简单
+1. 更改材质的颜色。尝试紫色、红色、绿色、蓝色或您喜欢的任何其他颜色。注意每种颜色如何与黑白纹理相结合。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   const material = new MeshStandardMaterial({
+      map: texture,
+      color: 'purple'
+   });
+   </pre>
+   </details>
+2. **/assets/textures**文件夹中包含了第二个纹理文件，称为`uv-test-col.png`。你能加载这个文件并将它应用到材质的`.map`槽中吗？
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   const texture = textureLoader.load('/1.8/assets/textures/uv-test-col.png');
+   </pre>
+   </details>
+3. 尝试将立方体切换为其他形状。 在文档中搜索“`BufferGeometry`”以查看所有可用的几何体。注意纹理是如何映射到不同形状上的。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   const geometry = new SphereGeometry(1,100, 100);
+   </pre>
+   </details>
+4. 打开[MeshStandardMaterial文档](https://threejs.org/docs/#api/en/materials/MeshStandardMaterial)页面。该材质共有11个纹理贴图插槽，每个插槽的名称中都包含`map`。你能找到所有的吗？
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   该文档中所有以`map`结束的属性都表示纹理贴图槽。
+   </pre>
+   </details>
+#### 中等
+1. 尝试将我们加载的纹理分配给材质上的其他贴图槽。它们可能并非都有效，但您会得到一些有趣的结果。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   const material = new MeshStandardMaterial({
+      normalMap:texture,
+   });
+   </pre>
+   </details>   
+2. 对`uv-test-col.png`做同样的事情。然后，一次加载两个纹理并将它们同时分配到不同的插槽。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   const texture = textureLoader.load('/1.8/assets/textures/uv-test-bw.png');
+   const texture1 = textureLoader.load('/1.8/assets/textures/uv-test-col.png');
+   const material = new MeshStandardMaterial({
+      map: texture1,
+      normalMap:texture,
+   });
+   </pre>
+   </details>
+3. 打开[Texture文档](https://threejs.org/docs/#api/en/textures/Texture)。通读可以在纹理上设置的各种属性。尝试调整`.offset`、`.repeat`、`.rotation`和`.center`属性。
+这些（除了`.rotation`）中的每一个都是一个`Vector2`，因此您可以使用`.set(x,y)`它们来调整它们。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   const texture = textureLoader.load('/1.8/assets/textures/uv-test-bw.png');
+   texture.center.set(5, 5);
+   texture.wrapS = RepeatWrapping;
+   texture.wrapT = RepeatWrapping;
+   texture.repeat.set(4, 4);
+   texture.offset.set(0.1, 0.1);
+   texture.rotation = MathUtils.degToRad(90)
+   const material = new MeshStandardMaterial({
+      map: texture,
+   });
+   </pre>
+   </details>
+#### 困难
+1. 材质中的每个纹理槽都与一个或多个属性（如`.color`和`.ma`p）相关联。贴图要么是一个[调制属性](https://discoverthreejs.com/zh/book/first-steps/textures-intro/#types-of-texture)
+（同样，像`.color`和`.map`），或者它本身被一些其他属性调制（像`.bumpMapand`和`.bumpScale`）。当您测试不同插槽中的纹理时，请尝试调整这些调制属性。其中一些是颜色（如`.color`和`emissive`），
+另一些是矢量（如`.normalScale`），但大多数是简单数字（如`.bumpScale`和`.displacementScale`）。在每种情况下，文档都清楚地说明了这一点。
+   <details>
+   <summary>查看答案</summary>
+   请参考<a href="https://threejs.org/docs/#api/zh/materials/MeshStandardMaterial" target="_blank">https://threejs.org/docs/#api/zh/materials/MeshStandardMaterial</a>
+   </details>
+2. 我们在上面提到，`Texture`类是`HTML`图像的包装器。如果您将`texture`打印到控制台，您应该能够找到该图像。您可以在控制台中找到`uv-test-bw.png`的URL并在新浏览器选项卡中打开它吗？
+    <details>
+   <summary>查看答案</summary>
+   <code>uv-test-bw.png</code>的url是<a target="_blank" href="http://localhost:5173/1.8/assets/textures/uv-test-bw.png">http://localhost:5173/1.8/assets/textures/uv-test-bw.png</a>
+   </details>
