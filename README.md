@@ -412,7 +412,7 @@
 3. 添加一个启动和停止动画循环的`click`事件监听器（或者，如果你想花哨的话，一个按钮）。在`main.js`中使用`World.start`和`World.stop`执行此操作。
    <details>
    <summary>查看答案</summary>
-   对`main.js`做如下改造：
+   对<code>main.js</code>做如下改造：
    <pre>
     const container = document.querySelector("#scene-container");
     const button = document.createElement("button");
@@ -515,7 +515,7 @@
    <details>
    <summary>查看答案</summary>
    <pre>
-   该文档中所有以`map`结束的属性都表示纹理贴图槽。
+   该文档中所有以<code>map</code>结束的属性都表示纹理贴图槽。
    </pre>
    </details>
 #### 中等
@@ -624,7 +624,7 @@
 2. 向页面添加一个按钮（或单击事件侦听器），并且每当您单击该按钮时，将相机和控件的目标移动到一个新的随机位置。尝试限制移动，使立方体始终位于屏幕上的某个位置。
    <details>
    <summary>查看答案</summary>
-   在`src/World/World.js`中添加以下代码：
+   在<code>src/World/World.js</code>中添加以下代码：
    <pre>
    translate() {
         let rangeSize = 4 - (-4) + 1;
@@ -638,7 +638,7 @@
    this.render();
    }
    </pre>
-   在`src/main.js`中做如下修改：
+   在<code>src/main.js</code>中做如下修改：
    <pre>
    const button = document.createElement('button');
    button.innerText = "Start";
@@ -660,7 +660,7 @@
 1. 设置在使用控件时[按需渲染](https://discoverthreejs.com/zh/book/first-steps/camera-controls/#rendering-on-demand-with-orbitcontrols)，包括在纹理加载后以及在调整场景大小时生成新帧。
    <details>
    <summary>查看答案</summary>
-   在`src/World/components/cube.js`中做如下修改:
+   在<code>src/World/components/cube.js</code>中做如下修改:
    <pre>
    function createCube(callback) {
       const geometry = new BoxBufferGeometry(2, 2, 2);
@@ -684,7 +684,7 @@
      return material;
    }
    </pre>
-   在`src/World/World.js`中做如下修改:
+   在<code>src/World/World.js</code>中做如下修改:
    <pre>
    const cube = createCube(()=>{
       this.render();
@@ -698,7 +698,7 @@
 或者当您在制作动画时不禁用控件时会发生什么。 设置此动画的最佳位置是在控件controls模块中。
    <details>
    <summary>查看答案</summary>
-   在`src/World/components/controls.js`中做如下修改:
+   在<code>src/World/components/controls.js</code>中做如下修改:
    <pre>
    controls.tick = () => {
       if (controls.target.x >= -4) {
@@ -707,14 +707,14 @@
       controls.update();
    }
    </pre>
-   在`src/World/World.js`中做如下修改:
+   在<code>src/World/World.js</code>中做如下修改:
    <pre>
    stop() {
       this.#loop.stop();
       this.#controls.reset();
    }
    </pre>
-   在`src/main.js`中做如下修改:
+   在<code>src/main.js</code>中做如下修改:
    <pre>
    const button = document.createElement('button');
     button.innerText = 'Start'
@@ -810,7 +810,7 @@
 我们可以使用单个`DirectionalLight`或`SpotLight`照亮场景。试试这个。首先，删除`ambientLight`，然后将相机添加到场景中，最后将`mainLight`添加到相机中。
    <details>
    <summary>查看答案</summary>
-   在`src/World/World.js`中做如下修改:
+   在<code>src/World/World.js</code>中做如下修改:
    <pre>
    this.#scene.add(cube, this.#camera);
    this.#camera.add(mainLight);
@@ -818,3 +818,104 @@
    </details>
 ## 1.11 组织你的场景
 地址: <http://localhost:5173/1.11/index.html>
+### 挑战
+#### 简单
+1. 通过更改循环中的值`0.05`来增加和减少球体的数量。在进行更改之前尝试计算您想要多少个球体，而不是输入随机数。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   球体数量 = 1 / 步进数(0.05)
+   </pre>
+   </details>
+2. 尝试除球体和盒子之外的其他形状。比如 锥体、 圆柱体、 圆环，或 正十二面体？对于本练习，只需将`SphereBufferGeometry`替换为其他缓冲区几何体类之一。
+每种几何体的构造函数采用不同的参数，因此请仔细阅读文档，并记住在使用之前导入它们。
+   <details>
+   <summary>查看答案</summary>
+   参见<a href="#中等">1.3 介绍世界应用程序</a>
+   </details>
+3. 尝试调整`widthSegments`和`heightSegments`。在您注意到帧速率下降之前，您最高可以设置多高？值非常低的球体是什么样的？如果两个参数不使用相同的数字会怎样？
+   <details>
+   <summary>查看答案</summary>
+   <code>widthSegments</code>和<code>heightSegments</code>的值越高，球体越细腻，加载时间越长。两者不一样时，会导致球体出现锯齿。
+   </details>
+#### 中等
+1. 在`group.tick`方法内部，我们每一帧都减去一个旋转：`.rotation.z -= ...`。这将导致*顺时针*旋转。切换到+=，并注意旋转如何变为*逆时针*。
+如果添加旋转，则运动将逆时针。如果减去旋转，运动将是顺时针方向。**three.js中的正旋转是逆时针的**。
+2. 你能在这里创建一些其他的动画吗？请记住，您可以*为任何可以更改的属性*设置动画。
+#### 困难
+1. 你猜对了！你能让编辑器中的场景与[上面的场景](https://discoverthreejs.com/zh/book/first-steps/organizing-with-group/#scene-325476918)完全匹配吗？
+   <details>
+   <summary>查看答案</summary>
+   在<code>src/World/components/camera.js</code>中做如下修改:
+   <pre>
+   camera.position.set(-3, 0, 2);
+   </pre>
+   在<code>src/World/components/meshGroup.js</code>中做如下修改:
+   <pre>
+   for (let i = 0; i < 1; i += 0.001) {
+      const sphere = protoSphere.clone();
+      sphere.position.x = Math.cos(2 * Math.PI * i);
+      sphere.position.y = Math.sin(2 * Math.PI * i);
+      sphere.position.z = -i * 5;
+      sphere.scale.multiplyScalar(0.01 + i);
+      group.add(sphere);
+   }
+   group.scale.multiplyScalar(2);
+   const radiansPerSecond = MathUtils.degToRad(30);
+   group.tick = (delta) => {
+      group.rotation.z -= delta / 2 ;
+   }
+   </pre>
+   </details>
+2. 回到原来的场景，你能在圆圈周围交替使用两种不同的形状吗？比如说，十个球体和十个盒子？如何在三种不同的形状之间交替？或者十种不同的形状呢？
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   function createMeshGroup() {
+      const group = new Group();
+      const geometry = new SphereBufferGeometry(0.25, 16, 16);
+      const material = new MeshStandardMaterial({
+         color: 'indigo',
+      });
+      const protoSphere = new Mesh(geometry, material);
+      group.add(protoSphere);
+      for (let i = 0; i < 1; i += 0.1) {
+         let index = Math.floor(i * 20) % 3;
+         const geometry = createGeometry(index);
+         const mesh = new Mesh(geometry, material);
+         mesh.position.x = Math.cos(2 * Math.PI * i);
+         mesh.position.y = Math.sin(2 * Math.PI * i);
+         mesh.scale.multiplyScalar(0.01 + i);
+         group.add(mesh);
+      }
+      group.scale.multiplyScalar(2);
+      const radiansPerSecond = MathUtils.degToRad(30);
+      group.tick = (delta) => {
+         // group.rotation.z -= delta * radiansPerSecond;
+      }
+      return group;
+   }
+   function createGeometry(index) {
+      return {
+         0: new BoxGeometry(0.25, 0.25, 0.25),
+         1: new SphereBufferGeometry(0.25, 16, 16),
+         2: new RingGeometry(0.25, 0.5, 16,)
+      }[index];
+   }
+   </pre>
+   </details>
+3. 虽然您确实可以为任何属性设置动画，但最难的部分是制作平滑、重复的运动。旋转是一种特殊情况，因为您可以不断增加，并且物体会绕圈转。
+要为其他属性创建类似的行为，您可以使用三角函数`sin`、`cos`和`tan`。我们使用`cos`和`sin`将球体放置在一个圆圈中，您可以执行类似的操作来将组的位置移动到一个圆圈中。
+你能做到吗？没有提示，毕竟，这应该是一个艰巨的挑战！
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   let i = 0;
+   group.tick = (delta) => {
+      // group.rotation.z += delta * radiansPerSecond;
+      group.position.x -= Math.cos(Math.PI * i * 2) * 0.1;
+      group.position.y -= Math.sin(Math.PI * i * 2) * 0.1;
+      i += 0.01;
+    }
+   </pre>
+   </details>
