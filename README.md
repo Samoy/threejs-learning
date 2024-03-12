@@ -694,7 +694,8 @@
    }
    </pre>
    </details>
-2. 你能在几秒钟内让相机和控件的目标动画到一个新的位置吗？也许在页面上添加一个按钮，当你点击它时，播放动画。看看当您只为相机或目标设置动画时会发生什么，或者当您在制作动画时不禁用控件时会发生什么。设置此动画的最佳位置是在控件controls模块中。
+2. 你能在几秒钟内让相机和控件的目标动画到一个新的位置吗？也许在页面上添加一个按钮，当你点击它时，播放动画。看看当您只为相机或目标设置动画时会发生什么，
+或者当您在制作动画时不禁用控件时会发生什么。 设置此动画的最佳位置是在控件controls模块中。
    <details>
    <summary>查看答案</summary>
    在`src/World/components/controls.js`中做如下修改:
@@ -728,5 +729,90 @@
       }
       isReset = !isReset;
    })
+   </pre>
+   </details>
+## 1.10 环境光：来自各个方向的光照
+地址: <http://localhost:5173/1.10/index.html>
+### 挑战
+#### 简单
+1. 暂时在编辑器中禁用`mainLight`，然后单独测试两个环境光类中的每一个。有几种方法可以禁用灯光。设置`.intensity`为零，不向场景添加灯光，或设置`mainLight.visible`为`false`。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   const mainLight = new DirectionalLight('white', 0);
+   // 或
+   mainLight.visible = false;
+   </pre>
+   </details>
+2. `HemisphereLight`的效果来自四个属性的相互作用：天空`.color`、`.groundColor`、`.intensity`和`.position`。尝试调整其中的每一个并观察结果。如果您先禁用主灯，您可能会发现这更容易查看。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   const ambientLight = new HemisphereLight(
+      'blue',
+      'yellow',
+      5,
+   );
+   ambientLight.position.set(1,1,1);
+   </pre>
+   </details>
+#### 中等
+1. 在编辑器中，我们给`HemisphereLight`和`DirectionalLight`都赋予了5的强度。我们这样做是为了突出环境光的效果，但是，通常情况下，我们会使直射光比环境光强。你可以通过调整两盏灯的强度和颜色来提高照明质量吗？
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   const mainLight = new DirectionalLight('white', 10);
+   </pre>
+   </details>
+2. 添加更多的直射光怎么样，`DirectionalLight`或者是其他类型的一种？当你添加更多这些光照，并从不同的方向照射过来时，场景光照会有所改善吗？
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   // 创建一个环境光光源
+   const ambientLight = new HemisphereLight('white', 'white', 5);
+   ambientLight.position.set(-10, -10, -10);
+   // 创建一个平行光光源
+   const mainLight = new DirectionalLight('yellow', 100);
+   mainLight.position.set(0, 0, 0);
+   // 创建一个平行光光源2
+   const mainLight2 = new DirectionalLight('blue', 50);
+   mainLight2.position.set(10, 10, 10);
+   return {
+      ambientLight,
+      mainLight,
+      mainLight2
+   };
+   </pre>
+   </details>
+3. 更多的环境光呢？还是同时添加一个`AmbientLight`和一个`HemisphereLight`？这对现场有什么影响？
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   function createLights() {
+      // 创建一个环境光光源
+      const ambientLight = new AmbientLight('red', 5);
+      // 创建一个半球光光源
+      const hemisphereLight = new HemisphereLight('green', 'darkslategrey', 6);
+      hemisphereLight.position.set(-10, -10, -10);
+      // 创建一个平行光光源
+      const mainLight = new DirectionalLight('blue', 8);
+      mainLight.position.set(10, 10, 10);
+      return {
+        ambientLight,
+        hemisphereLight,
+        mainLight
+      };
+   }
+   </pre>
+   </details>
+#### 困难
+1. 从本章开始我们的问题的另一个解决方案是添加一个光作为相机的子级。这样，当相机移动时，光线也会移动。你可以把它想象成一个相机和手电筒绑在一边。使用这种方法，
+我们可以使用单个`DirectionalLight`或`SpotLight`照亮场景。试试这个。首先，删除`ambientLight`，然后将相机添加到场景中，最后将`mainLight`添加到相机中。
+   <details>
+   <summary>查看答案</summary>
+   在`src/World/World.js`中做如下修改:
+   <pre>
+   this.#scene.add(cube, this.#camera);
+   this.#camera.add(mainLight);
    </pre>
    </details>

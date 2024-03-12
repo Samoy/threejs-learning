@@ -1,4 +1,4 @@
-import {DirectionalLight, AmbientLight, HemisphereLight} from "three";
+import {DirectionalLight, HemisphereLight} from "three";
 
 function createLights() {
     // 创建一个环境光光源
