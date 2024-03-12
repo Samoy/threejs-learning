@@ -10,13 +10,18 @@ class Train extends Group {
 
         this.meshes = createMeshes();
         this.add(
-            this.meshes.nose,
+            this.meshes.top,
+            this.meshes.bottom,
             this.meshes.cabin,
+            this.meshes.nose,
             this.meshes.chimney,
             this.meshes.smallWheelRear,
             this.meshes.smallWheelCenter,
             this.meshes.smallWheelFront,
-            this.meshes.bigWheel
+            this.meshes.bigWheel,
+            this.meshes.track,
+            this.meshes.track2,
+            this.meshes.pillars
         )
     }
 

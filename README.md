@@ -933,3 +933,149 @@
     }
    </pre>
    </details>
+## 1.12 内置几何体
+地址: <http://localhost:5173/1.12/index.html>
+### 挑战
+#### 简单
+1. 有什么比玩具火车更好的呢？两个玩具火车怎么样？你可以`.clone`整个火车之后在创建它。现在就这样做，然后调整第二列火车的`.position`。不要忘记将它添加到场景中！
+   <details>
+   <summary>查看答案</summary>
+   在<code>src/World/World.js</code>中做如下修改:
+   <pre>
+   const train2 = train.clone();
+   train2.position.set(4, -3, 0);
+   this.#loop.updatables.push(controls, train);
+   this.#scene.add(ambientLight, mainLight, train, train2);
+   </pre>
+   </details>
+2. 有什么比两辆玩具火车更好的呢？ 在循环中创建一大堆火车。在循环中，确保移动每辆新火车，使它们不会全部堆叠在一起，然后将它们添加到场景中。看看有多少有趣的方式可以定位克隆的火车。
+   <details>
+   <summary>查看答案</summary>
+   在<code>src/World/World.js</code>中做如下修改:
+   <pre>
+   for (let i = 0; i < 10; i ++) {
+      const newTrain = train.clone();
+      newTrain.position.y -= i * 4;
+      this.#scene.add(newTrain);
+   }
+   </pre>
+   </details>
+#### 中等
+1. 你能在货舱里创造一个窗户吗？没有办法在几何体上打孔（不使用外部库），因此您必须从几个盒子几何体中重建货舱。一种方法是为地板创建一个大盒子，然后为屋顶创建另一个大盒子，
+最后，围绕屋顶边缘创建四个用于支柱的小盒子（或圆柱体）。
+   <details>
+   <summary>查看答案</summary>
+   在<code>src/World/components/Train/geometries.js</code>中做如下修改:
+   <pre>
+   function createGeometries() {
+      const top = new BoxBufferGeometry(2, 0.5, 1.5);
+      const bottom = new BoxBufferGeometry(2, 0.5, 1.5);
+      // 创建柱子
+      const cylinder = new CylinderBufferGeometry(0.1, 0.1, 1.5, 12);
+      const nose = new CylinderBufferGeometry(0.75, 0.75, 3, 12);
+      const wheel = new CylinderBufferGeometry(0.4, 0.4, 1, 16);
+      const chimney = new CylinderBufferGeometry(0.3, 0.1, 0.5);
+      return {
+         cylinder,
+         top,
+         bottom,
+         nose,
+         wheel,
+         chimney
+      }
+   }
+   </pre>
+   在<code>src/World/components/Train/meshes.js</code>中做如下修改:
+   <pre>
+   const top = new Mesh(geometries.top, materials.body);
+   top.position.set(1.5, 2.25, 0);
+   const bottom = new Mesh(geometries.bottom, materials.body);
+   bottom.position.set(1.5, 0.5, 0);
+   // 柱子1
+   const cylinder = new Mesh(geometries.cylinder, materials.detail);
+   cylinder.position.set(0.6, 1.5, 0.65);
+   // 柱子2
+   const cylinder2 = cylinder.clone();
+   cylinder2.position.set(2.4, 1.5, 0.65);
+   // 柱子3
+   const cylinder3 = cylinder.clone();
+   cylinder3.position.set(2.4, 1.5, -0.65);
+   // 柱子4
+   const cylinder4 = cylinder.clone();
+   cylinder4.position.set(0.6, 1.5, -0.65);
+   const cabin = new Group();
+   cabin.add(cylinder, cylinder2, cylinder3, cylinder4);
+   </pre>
+   在<code>src/World/components/Train/Train.js</code>中做如下修改:
+   <pre>
+   this.add(
+      this.meshes.top,
+      this.meshes.bottom,
+      this.meshes.cabin,
+      this.meshes.nose,
+      this.meshes.chimney,
+      this.meshes.smallWheelRear,
+      this.meshes.smallWheelCenter,
+      this.meshes.smallWheelFront,
+      this.meshes.bigWheel
+   )
+   </pre>
+   </details>
+2. 没有轨道的火车走不了多远！在车轮下添加一些轨道。创建两个主要轨道，然后在轨道下创建一个枕木并使用克隆创建其余部分。
+   <details>
+   <summary>查看答案</summary>
+   在<code>src/World/components/Train/geometries.js</code>中做如下修改:
+   <pre>
+   // 轨道
+   const track = new CylinderBufferGeometry(0.1, 0.1, 5, 16);
+   // 枕木
+   const pillar = new CylinderBufferGeometry(0.1, 0.1, 1, 16);
+   return {
+      ...
+      track,
+      pillar
+   }
+   </pre>
+   在<code>src/World/components/Train/meshes.js</code>中做如下修改:
+   <pre>
+   // 轨道
+   const track = new Mesh(geometries.track, materials.body);
+   track.rotation.z = Math.PI / 2;
+   track.position.set(0, 0, 0.4);
+   const track2 = track.clone();
+   track2.position.set(0, 0, -0.4);
+   // 创建枕木
+   const pillar = new Mesh(geometries.pillar, materials.detail);
+   pillar.rotation.x = Math.PI / 2;
+   const pillars = new Group();
+   for (let i = -2.4; i < 2.6; i+=0.3) {
+      const newPillar = pillar.clone();
+      newPillar.position.set(i, 0, 0);
+      pillars.add(newPillar);
+   }
+   return {
+      ...,
+      track,
+      track2,
+      pillars
+   }
+   </pre>
+   在<code>src/World/components/Train/Train.js</code>中做如下修改:
+   <pre>
+   this.add(
+      ...,
+      this.meshes.track,
+      this.meshes.track2,
+      this.meshes.pillars
+   )
+   </pre>
+   </details>
+3. 每辆火车都需要一名售票员！创建一个站在火车旁边的简单人形（如乐高角色）。
+   <details>
+   <summary>查看答案</summary>
+   </details>
+#### 困难
+1. 你还能做些什么来改善这个场景？从火车的烟囱冒出一些气泡怎么样（用`SphereBufferGeometry`来制造气泡）。天上有些云怎么样？如何为烟雾和云设置动画？
+   <details>
+   <summary>查看答案</summary>
+   </details>
