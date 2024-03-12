@@ -660,8 +660,73 @@
 1. 设置在使用控件时[按需渲染](https://discoverthreejs.com/zh/book/first-steps/camera-controls/#rendering-on-demand-with-orbitcontrols)，包括在纹理加载后以及在调整场景大小时生成新帧。
    <details>
    <summary>查看答案</summary>
+   在`src/World/components/cube.js`中做如下修改:
+   <pre>
+   function createCube(callback) {
+      const geometry = new BoxBufferGeometry(2, 2, 2);
+      const material = createMaterial(callback);
+      const cube = new Mesh(geometry, material);
+      cube.rotation.set(-0.5, -0.1, 0.8);
+      const radiansPerSecond = MathUtils.degToRad(30);
+      cube.tick = (delta) => {
+        cube.rotation.x += radiansPerSecond * delta;
+        cube.rotation.y += radiansPerSecond * delta;
+        cube.rotation.z += radiansPerSecond * delta;
+      }
+      return cube;
+   }
+   function createMaterial(callback) {
+     const textureLoader = new TextureLoader();
+     const texture = textureLoader.load('/1.8/assets/textures/uv-test-bw.png', callback);
+     const material = new MeshStandardMaterial({
+       map: texture,
+     });
+     return material;
+   }
+   </pre>
+   在`src/World/World.js`中做如下修改:
+   <pre>
+   const cube = createCube(()=>{
+      this.render();
+   });
+   resizer.onResize = () => {
+      this.render();
+   }
+   </pre>
    </details>
 2. 你能在几秒钟内让相机和控件的目标动画到一个新的位置吗？也许在页面上添加一个按钮，当你点击它时，播放动画。看看当您只为相机或目标设置动画时会发生什么，或者当您在制作动画时不禁用控件时会发生什么。设置此动画的最佳位置是在控件controls模块中。
    <details>
    <summary>查看答案</summary>
+   在`src/World/components/controls.js`中做如下修改:
+   <pre>
+   controls.tick = () => {
+      if (controls.target.x >= -4) {
+         controls.target.x -= 0.1;
+      }
+      controls.update();
+   }
+   </pre>
+   在`src/World/World.js`中做如下修改:
+   <pre>
+   stop() {
+      this.#loop.stop();
+      this.#controls.reset();
+   }
+   </pre>
+   在`src/main.js`中做如下修改:
+   <pre>
+   const button = document.createElement('button');
+    button.innerText = 'Start'
+    let isReset = true;
+    button.addEventListener('click', () => {
+      if (isReset) {
+         world.start();
+         button.innerText = 'Reset'
+      } else {
+         world.stop();
+         button.innerText = 'Start'
+      }
+      isReset = !isReset;
+   })
+   </pre>
    </details>
