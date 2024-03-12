@@ -831,7 +831,7 @@
 每种几何体的构造函数采用不同的参数，因此请仔细阅读文档，并记住在使用之前导入它们。
    <details>
    <summary>查看答案</summary>
-   参见<a href="#中等">1.3 介绍世界应用程序</a>
+   参见<a href="#中等">1.3 介绍世界应用程序#中等</a>
    </details>
 3. 尝试调整`widthSegments`和`heightSegments`。在您注意到帧速率下降之前，您最高可以设置多高？值非常低的球体是什么样的？如果两个参数不使用相同的数字会怎样？
    <details>
@@ -841,7 +841,21 @@
 #### 中等
 1. 在`group.tick`方法内部，我们每一帧都减去一个旋转：`.rotation.z -= ...`。这将导致*顺时针*旋转。切换到+=，并注意旋转如何变为*逆时针*。
 如果添加旋转，则运动将逆时针。如果减去旋转，运动将是顺时针方向。**three.js中的正旋转是逆时针的**。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   // group.rotation.z -= 0.05;
+   group.rotation.z += 0.05
+   </pre>
+   </details>
 2. 你能在这里创建一些其他的动画吗？请记住，您可以*为任何可以更改的属性*设置动画。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+    group.position.x += delta * 0.5;
+    group.position.y += delta * 0.5;
+   </pre>
+   </details>
 #### 困难
 1. 你猜对了！你能让编辑器中的场景与[上面的场景](https://discoverthreejs.com/zh/book/first-steps/organizing-with-group/#scene-325476918)完全匹配吗？
    <details>
