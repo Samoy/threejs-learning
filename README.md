@@ -1306,3 +1306,20 @@ group.tick = (delta) => {
    <summary>查看答案</summary>
    请自行实现它！
    </details>
+## 1.14 Three.js动画系统
+地址：<http://localhost:5173/1.14/index.html>
+### 挑战
+#### 简单
+`AnimationAction`有更多的动画控件`.play`和`.stop`。现在试试其中的一些。
+1. 您可以使用`.startAt`延迟动画的开始。测试一下。
+2. 您可以使用`.timeScale`属性控制动画的速度。您可以直接设置值，也可以使用`.setEffectiveTimeScale`方法。
+3. 利用`.halt`逐渐减慢动画停止。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+    action.startAt(1)
+      .setEffectiveTimeScale(1)
+      .halt(6)
+      .play()
+   </pre>
+   </details>
