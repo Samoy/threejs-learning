@@ -3,6 +3,9 @@
 本项目是学习Three.js的练习项目，主要学习Three.js的基本用法。代码目录根据[探索Three.js](https://discoverthreejs.com/zh/book/)
 章节命名。例如1.1章，代码目录为`1.1`。
 
+在线Demo: <https://www.samoy.site/threejs-learning>
+本地Demo： <http://localhost:5173/index.html>
+
 ## 1.1 Three.js 应用的结构
 
 地址：<http://localhost:5173/1.1/index.html>
