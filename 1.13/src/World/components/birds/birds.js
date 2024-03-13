@@ -1,12 +1,15 @@
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
 import {setupModel} from "./setupModel";
+import parrotImg from '../../../../assets/models/Parrot.glb'
+import flamingoImg from '../../../../assets/models/Flamingo.glb'
+import storkImg from '../../../../assets/models/Stork.glb'
 
 async function loadBirds() {
     const loader = new GLTFLoader();
     const [parrotData, flamingoData, storkData] = await Promise.all([
-        loader.loadAsync('/1.13/assets/models/Parrot.glb'),
-        loader.loadAsync('/1.13/assets/models/Flamingo.glb'),
-        loader.loadAsync('/1.13/assets/models/Stork.glb'),
+        loader.loadAsync(parrotImg),
+        loader.loadAsync(flamingoImg),
+        loader.loadAsync(storkImg),
     ])
     const parrot = setupModel(parrotData);
     parrot.position.set(0, 0, 2.5);

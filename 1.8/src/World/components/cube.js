@@ -6,6 +6,8 @@ import {
     TextureLoader
 } from 'three';
 
+import uv from '../../../assets/textures/uv-test-bw.png'
+
 function createCube() {
     // create a geometry
     const geometry = new BoxBufferGeometry(2, 2, 2);
@@ -29,7 +31,7 @@ function createCube() {
 
 function createMaterial() {
     const textureLoader = new TextureLoader();
-    const texture = textureLoader.load('/1.8/assets/textures/uv-test-bw.png');
+    const texture = textureLoader.load(uv);
     const material = new MeshStandardMaterial({
         map: texture,
     });
