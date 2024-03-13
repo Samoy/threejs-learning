@@ -1260,3 +1260,49 @@ group.tick = (delta) => {
    this.#scene.add(...,...bubbles.children);
    </pre>
    </details>
+## 1.13 以glTF格式加载3D模型
+地址：<http://localhost:5173/1.13/index.html>
+### 挑战
+#### 简单
+1. 看看那只抢风头的鹦鹉！切换鸟的位置，让鹳和火烈鸟各自轮流带领鸟群。
+   <details>
+   <summary>查看答案</summary>
+   鹳：在<code>src/World/components/birds/birds.js</code>中做如下修改:
+   <pre>
+   parrot.position.set(0, -2.5, -10);
+   stork.position.set(0, 0, 2.5);
+   </pre>
+   火烈鸟：在<code>src/World/components/birds/birds.js</code>中做如下修改:
+   <pre>
+   parrot.position.set(7.5, 0, -10);
+   flamingo.position.set(0, 0, 2.5);
+   </pre>
+   </details>
+2. 或者，将鸟类留在原地，并尝试将controls.target注意力集中在另外两只鸟中的一只而不是鹦鹉身上。
+   <details>
+   <summary>查看答案</summary>
+   <pre>
+   // this.#controls.target.copy(stork.position);
+   this.#controls.target.copy(flamingo.position);
+   </pre>
+   </details>
+#### 中等
+1. 添加一个带有*Switch Focus*文本的`<button>`的元素。每当您单击此按钮时，相机应聚焦在下一只鸟身上。你可以随心所欲地实现它， 
+但是，如果你想按照我们目前的工作来做，你应该在`main.js`中设置按钮，然后用一个方法扩展`World`类接口，将焦点移到下一个鸟。
+您可以命名此方法为`World.focusNext`或类似的方法。
+   <details>
+   <summary>查看答案</summary>
+   请自行实现它！
+   </details>
+#### 困难
+1. 实现上面的按钮后，您将拥有三个摄像机视图，每只鸟一个。添加第四个视图，它是场景的缩小概览，可让您看到所有三只鸟。对于这第四个视图，
+您可能需要调整`camera.position`以及`controls.target`。
+   <details>
+   <summary>查看答案</summary>
+   请自行实现它！
+   </details>
+2. 现在，让相机从一个视点平滑地动画化到下一个视点。您必须同时为`camera.position`和`controls.target`设置动画。最好的地方是在`controls.tick`方法内。
+   <details>
+   <summary>查看答案</summary>
+   请自行实现它！
+   </details>
