@@ -8,9 +8,9 @@ for (let i = 1; i <= 14; i++) {
 }
 
 export default defineConfig({
+    base:'./',
     assetsInclude: [
-        '**/*.glb',
-        '**/*.png'
+        '**/*.glb'
     ],
     build: {
         rollupOptions: {
